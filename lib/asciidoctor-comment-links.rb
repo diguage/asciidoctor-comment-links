@@ -1,39 +1,20 @@
 require 'asciidoctor'
 
 module AsciidoctorCommentLinks
-  class CommentLinksTreeProcessor < Asciidoctor::Extensions::TreeProcessor
-    def process(document)
-      highlighter_type = document.attributes.fetch('source-highlighter')
-      if blank?(highlighter_type)
-        return;
-      end
-      code_blocks = document.blocks.select { |b| 'source' == b.style }
-      if code_blocks.nil? || code_blocks.empty?
-        return;
-      end
-      code_blocks.each do |block|
-        language = block.attributes.fetch('language')
-        if blank?(language)
-          next
-        end
-        # HTML
-        # Java/C#
-        # Shell
-        # SQL
-        block.lines.each_with_index do |element, index|
-          if (element.include? 'http://') || (element.include? 'https://')
-            puts element
-          end
-        end
-      end
-    end
+  class CommentLinksRougeAdapter < (Asciidoctor::SyntaxHighlighter.for 'rouge')
+    register_for 'rouge'
 
-    def blank? (str)
-      str.nil? || str.strip.empty?
+    def create_formatter node, source, lang, opts
+      formatter = super
+      formatter.singleton_class.prepend (Module.new do
+        def safe_span tok, safe_val
+          if tok.token_chain[0].matches? ::Rouge::Token::Tokens::Comment
+            safe_val = safe_val.gsub %r/https?:\/\/\S+/, '<a href="\&">\&</a>'
+          end
+          super
+        end
+      end)
+      formatter
     end
   end
-end
-
-Asciidoctor::Extensions.register do
-  tree_processor AsciidoctorCommentLinks::CommentLinksTreeProcessor
 end
