@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.version     = AsciidoctorCommentLinks::VERSION
   s.summary     = "Turn the link in the comment of the source block into a clickable jump link."
   s.description = "It is an Asciidoctor Extension, it turns the link in the comment of the source block into a clickable jump link."
-  s.authors     = ['diguage']
-  s.email       = 'leejun119@gmail.com'
+  s.authors     = ['diguage', 'Dan Allen']
+  s.email       = ['leejun119@gmail.com', 'dan.j.allen@gmail.com']
   s.files       = ['lib/asciidoctor-comment-links.rb']
   s.homepage    = 'https://www.diguage.com'
   s.metadata    = { "source_code_uri" => "https://github.com/diguage/asciidoctor-comment-links" }
