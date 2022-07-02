@@ -1,5 +1,51 @@
-= Asciidoctor Comment Links Extension
+= asciidoctor-comment-links
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 Turn the link in the comment of the source block into a clickable jump link.
 
-Developing, comming soon
+TIP: Now, it only support https://github.com/rouge-ruby/rouge[Rouge^] highlighter.
+
+== Installation
+
+This extension is published on RubyGems as
+https://rubygems.org/gems/asciidoctor-comment-links[asciidoctor-comment-links^].
+Install the gem by adding it to your project's Gemfile or gemspec and running
+Bundler. Or install it directly:
+
+```
+$ gem install asciidoctor-comment-links
+```
+
+## Usage
+
+Be sure to use Asciidoctor v2.0.0 or later.
+
+```
+$ asciidoctor -V
+Asciidoctor 2.0.0 [https://asciidoctor.org]
+```
+
+Use Asciidoctor's `--require` option like this:
+
+```
+$ asciidoctor -r asciidoctor-comment-links sample.adoc
+```
+
+== Contributing
+
+* Share this project with someone else who may be interested
+* Contribute a fix for a currently open
+https://github.com/diguage/asciidoctor-comment-links/issues[issues^] (if any)
+using a GitHub pull request (please discuss before working on any large
+changes)
+* Submit your comments or your ideas on https://asciidoctor.zulipchat.com/#narrow/stream/279642-users/topic/How.20to.20only.20use.20the.20link.20handler.20of.20macros.20in.20the.20subs.3F[Discuss on chat.asciidoctor.org^].
+* Open a new issue for a problem you've discovered or a possible enhancement
+
+Thank you for your support!
