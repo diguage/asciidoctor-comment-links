@@ -7,17 +7,19 @@ module AsciidoctorCommentLinks
       if blank?(highlighter_type)
         return;
       end
-      code_blocks = document.blocks.select { |b| :source == b.style }
+      code_blocks = document.blocks.select { |b| 'source' == b.style }
       if code_blocks.nil? || code_blocks.empty?
         return;
       end
       code_blocks.each do |block|
         language = block.attributes.fetch('language')
         if blank?(language)
-          return;
+          next
         end
         # HTML
-        # Java\
+        # Java/C#
+        # Shell
+        # SQL
         block.lines.each_with_index do |element, index|
           if (element.include? 'http://') || (element.include? 'https://')
             puts element

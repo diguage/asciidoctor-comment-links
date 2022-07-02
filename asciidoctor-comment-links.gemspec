@@ -17,5 +17,15 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.require_paths = ['lib']
-  s.add_development_dependency 'asciidoctor', '~> 2.0.0'
+  # MAJOR.MINOR.PATCH
+  # ~> 2     == ['>= 2',     '< 3']
+  # ~> 2.2   == ['>= 2.2',   '< 3.0']
+  # ~> 2.2.0 == ['>= 2.2.0', '< 2.3.0']
+  s.add_development_dependency 'asciidoctor', '~> 2.0'
+  s.add_development_dependency 'bundler', '~> 2.2'
+  s.add_development_dependency 'minitest', '~> 5.16'
+  s.add_development_dependency 'rake', '~> 13.0'
+  s.add_development_dependency 'rouge', '~> 3.29'
+  s.date = '2022-07-02'
+  s.required_ruby_version = '>= 2.5'
 end

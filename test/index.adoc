@@ -1,0 +1,36 @@
+= 测试文档
+:source-highlighter: rouge
+:rouge-style: monokai
+
+[source,java,indent=0]
+----
+/**
+ * 创建 Hessian2Output 对象，以便用于序列化
+ *
+ * @author D瓜哥 · https://www.diguage.com/
+ */
+private Hessian2Output getHessian2Output(OutputStream stream) {
+    SerializerFactory serializerFactory = new SerializerFactory();
+    serializerFactory.setAllowNonSerializable(true);
+    Hessian2Output result = new Hessian2Output(stream);
+    result.setSerializerFactory(serializerFactory);
+    return result;
+}
+
+/**
+ * 打印字节数组
+ *
+ * @author D瓜哥 · https://www.diguage.com/
+ */
+private void printBytes(byte[] result) {
+    for (byte b : result) {
+        String bitx = Integer.toBinaryString(Byte.toUnsignedInt(b));
+        String zbits = String.format("%8s", bitx).replace(' ', '0');
+        if (0 <= b) {
+            System.out.printf("%4d 0x%02X %8s %c %n", b, b, zbits, b);
+        } else {
+            System.out.printf("%4d 0x%02X %8s %n", b, b, zbits);
+        }
+    }
+}
+----

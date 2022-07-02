@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    asciidoctor-comment-links (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    asciidoctor (2.0.17)
+    minitest (5.16.1)
+    rake (13.0.6)
+    rouge (3.29.0)
+
+PLATFORMS
+  x86_64-darwin-19
+
+DEPENDENCIES
+  asciidoctor (~> 2.0)
+  asciidoctor-comment-links!
+  bundler (~> 2.2)
+  minitest (~> 5.16)
+  rake (~> 13.0)
+  rouge (~> 3.29)
+
+BUNDLED WITH
+   2.2.17
