@@ -2,12 +2,11 @@
 *.rbc
 /.config
 /coverage/
+/deep_cover/
 /InstalledFiles
 /pkg/
 /spec/reports/
 /spec/examples.txt
-/test/tmp/
-/test/version_tmp/
 /tmp/
 
 # Used by dotenv library to load environment variables.
@@ -40,6 +39,7 @@ build-iPhoneSimulator/
 
 ## Environment normalization:
 /.bundle/
+/vendor/
 /vendor/bundle
 /lib/bundler/man/
 
@@ -55,6 +55,10 @@ build-iPhoneSimulator/
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
 
+/Gemfile.lock
+/pkg/*.gem
+/*.gem
+/WORKLOG.adoc
 .idea
 *.html
 
