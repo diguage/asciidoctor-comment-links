@@ -1,0 +1,39 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build examples
+    runs-on: ubuntu-latest
+
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler: none
+
+      - name: Install build dependencies
+        run: gem install asciidoctor rouge coderay pygments.rb
+
+      - name: Build examples
+        run: asciidoctor -I lib -r asciidoctor-comment-links examples/*.adoc
+
+      # https://github.com/JamesIves/github-pages-deploy-action
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.pages_token }}
+          branch: gh-pages
+          folder: examples
+          single-commit: true
