@@ -1,5 +1,17 @@
 = Change Log
 
+== v0.1.0
+
+. Generate CHANGELOG from git history in release workflow
+. Add GitHub Pages deployment workflow
+. Add CodeRay, Pygments, and highlight.js support
+. Support HTTP and HTTPS URLs in comments
+. Add Action for Ruby Compatibility Test
+
+=== Details
+
+https://github.com/diguage/asciidoctor-comment-links/releases/tag/v0.1.0[git tag] | https://github.com/diguage/asciidoctor-comment-links/compare/v0.0.2\...v0.1.0[full diff]
+
 == v0.0.2
 
 . Open the link in new windows.
