@@ -1,0 +1,9 @@
+= Change Log
+
+== v0.0.2
+
+. Open the link in new windows.
+
+== v0.0.1
+
+. Create the extensions.
