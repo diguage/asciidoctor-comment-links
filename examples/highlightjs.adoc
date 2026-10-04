@@ -1,0 +1,18 @@
+= highlight.js Example
+:source-highlighter: highlight.js
+:icons: font
+
+This example uses the highlight.js source highlighter.
+
+[source,java]
+----
+// Visit https://example.com/docs for more information.
+/**
+ * @author D瓜哥 · https://www.diguage.com/
+ */
+String url = "https://example.com/internal";
+----
+
+TIP: highlight.js performs highlighting in the browser, so the links are added
+by a script after the page is opened. They are not present in the generated
+HTML source.

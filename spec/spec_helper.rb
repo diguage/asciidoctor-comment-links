@@ -28,4 +28,11 @@ RSpec.configure do
   ensure
     Asciidoctor::LoggerManager.logger = old_logger
   end
+
+  def library_available? feature
+    require feature
+    true
+  rescue LoadError
+    false
+  end
 end

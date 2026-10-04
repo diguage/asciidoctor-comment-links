@@ -10,7 +10,11 @@ endif::[]
 
 Turn the link in the comment of the source block into a clickable jump link.
 
-TIP: Now, it only support https://github.com/rouge-ruby/rouge[Rouge^] highlighter.
+TIP: This extension supports the Rouge, CodeRay, Pygments, and highlight.js
+source highlighters. For Rouge, CodeRay, and Pygments the links are added
+when the document is converted. Since highlight.js performs highlighting in
+the browser, this extension injects a small script that turns URLs in
+comments into links after highlight.js has run.
 
 == Installation
 

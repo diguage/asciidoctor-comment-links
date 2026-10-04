@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = "It is an Asciidoctor Extension, it turns the link in the comment of the source block into a clickable jump link."
   s.authors     = ['diguage', 'Dan Allen']
   s.email       = ['leejun119@gmail.com', 'dan.j.allen@gmail.com']
-  s.files       = ['lib/asciidoctor-comment-links.rb']
+  s.files       = Dir['lib/**/*.rb']
   s.homepage    = 'https://www.diguage.com'
   s.metadata    = { "source_code_uri" => "https://github.com/diguage/asciidoctor-comment-links" }
   s.license     = 'MIT'

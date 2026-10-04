@@ -2,8 +2,11 @@
 
 describe AsciidoctorCommentLinks do
   context 'require' do
-    it 'should register the Rouge syntax highlighter adapter when the library is required' do
+    it 'should register the syntax highlighter adapters when the library is required' do
       (expect Asciidoctor::SyntaxHighlighter.for('rouge')).to be described_class::CommentLinksRougeAdapter
+      (expect Asciidoctor::SyntaxHighlighter.for('coderay')).to be described_class::CommentLinksCodeRayAdapter
+      (expect Asciidoctor::SyntaxHighlighter.for('pygments')).to be described_class::CommentLinksPygmentsAdapter
+      (expect Asciidoctor::SyntaxHighlighter.for('highlight.js')).to be described_class::CommentLinksHighlightJsAdapter
     end
 
     it 'should be able to require the library from a fresh Ruby process' do
@@ -118,6 +121,63 @@ describe AsciidoctorCommentLinks do
       actual = Asciidoctor.convert input, safe: :safe
       (expect actual).to include 'href="https://example.com/docs"'
       (expect actual).not_to include '<a href="https://example.com/internal"'
+    end
+  end
+
+  context 'CodeRay formatter' do
+    it 'should convert URLs in comments into links' do
+      skip 'CodeRay is not installed' unless library_available? 'coderay'
+      input = <<~'END'
+      :source-highlighter: coderay
+
+      [source,java]
+      ----
+      // Visit https://example.com/docs
+      String url = "https://example.com/internal";
+      ----
+      END
+
+      actual = Asciidoctor.convert input, safe: :safe
+      (expect actual).to include '<a href="https://example.com/docs" target="_blank">https://example.com/docs</a>'
+      (expect actual).not_to include '<a href="https://example.com/internal"'
+    end
+  end
+
+  context 'Pygments formatter' do
+    it 'should convert URLs in comments into links' do
+      skip 'Pygments is not installed' unless library_available? 'pygments'
+      input = <<~'END'
+      :source-highlighter: pygments
+
+      [source,java]
+      ----
+      // Visit https://example.com/docs
+      String url = "https://example.com/internal";
+      ----
+      END
+
+      actual = Asciidoctor.convert input, safe: :safe
+      (expect actual).to include '<a href="https://example.com/docs" target="_blank">https://example.com/docs</a>'
+      (expect actual).not_to include '<a href="https://example.com/internal"'
+    end
+  end
+
+  context 'highlight.js formatter' do
+    it 'should inject a script that links URLs in comments on the client' do
+      input = <<~'END'
+      = Doc
+      :source-highlighter: highlight.js
+
+      [source,java]
+      ----
+      // Visit https://example.com/docs
+      ----
+      END
+
+      actual = Asciidoctor.convert input, safe: :safe, standalone: true
+      (expect actual).to include '.hljs-comment'
+      (expect actual).to include '<a href="$&" target="_blank">$&</a>'
+      (expect actual).to include "querySelectorAll('.hljs-comment')"
     end
   end
 end

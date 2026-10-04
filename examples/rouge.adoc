@@ -1,0 +1,16 @@
+= Rouge Example
+:source-highlighter: rouge
+
+This example uses the Rouge source highlighter.
+
+[source,java]
+----
+// Visit https://example.com/docs for more information.
+/**
+ * @author D瓜哥 · https://www.diguage.com/
+ */
+String url = "https://example.com/internal";
+----
+
+Only the URLs in the comments are converted to links. The URL in the string
+literal is left untouched.
