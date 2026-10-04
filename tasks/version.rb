@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'open3'
 require 'time'
 
 repo_url = 'https://github.com/diguage/asciidoctor-comment-links'
@@ -10,6 +11,24 @@ release_date = Time.now.strftime '%Y-%m-%d'
 version_file = Dir['lib/**/version.rb'].first
 readme_file = 'README.adoc'
 changelog_file = 'CHANGELOG.adoc'
+
+def git_output(*args)
+  out, status = Open3.capture2(*args)
+  status.success? ? out : ''
+end
+
+def previous_tag
+  tag = git_output('git', 'describe', '--tags', '--abbrev=0', 'HEAD').strip
+  tag.empty? ? nil : tag
+end
+
+def changelog_entries(previous)
+  range = previous ? "#{previous}..HEAD" : 'HEAD'
+  subjects = git_output('git', 'log', '--no-merges', '--pretty=format:%s', range).lines.map(&:strip)
+  subjects = subjects.reject(&:empty?)
+  subjects = subjects.reject { |subject| subject.match?(/\A(?:release |update changelog|fix changelog)/i) }
+  subjects.map { |subject| ". #{subject}" }.join("\n")
+end
 
 version_contents = (File.readlines version_file, mode: 'r:UTF-8').map do |l|
   if l =~ /^\s*VERSION\s*=/
@@ -40,10 +59,12 @@ details_line = "#{repo_url}/releases/tag/v#{release_version}[git tag]"
 if previous_release_version
   details_line += " | #{repo_url}/compare/v#{previous_release_version}\\...v#{release_version}[full diff]"
 end
+entries = changelog_entries previous_tag
+release_body = entries.empty? ? '. _No changes since previous release._' : entries
 release_block = [
   "== v#{release_version}\n",
   ?\n,
-  ". _No changes since previous release._\n",
+  "#{release_body}\n",
   ?\n,
   "=== Details\n",
   ?\n,

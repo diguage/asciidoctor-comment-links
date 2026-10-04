@@ -1,33 +1,45 @@
 name: Release
 run-name: ${{ github.workflow }} ${{ github.event.inputs.release-version }}
+
 on:
   workflow_dispatch:
     inputs:
       release-version:
-        description: Enter version to release (e.g., 0.0.3).
+        description: Enter version to release (e.g., 0.1.0).
         required: false
+
 jobs:
   perform:
-    if: github.repository_owner == 'diguage' && github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     environment: releases
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Install Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.3'
-        bundler-cache: false
-    - name: Install Ruby dependencies
-      run: |
-        bundle config --local path vendor/bundle
-        bundle --jobs 3 --retry 3
-    - name: Run tests
-      run: bundle exec rake spec
-    - name: Set up release environment
-      run: |
-        echo RELEASE_VERSION=${{ github.event.inputs.release-version }} >> $GITHUB_ENV
-        echo RELEASE_RUBYGEMS_API_KEY=${{ secrets[format('RUBYGEMS_API_KEY_{0}', github.actor)] }} >> $GITHUB_ENV
-    - name: Build, tag, and publish gem
-      run: ./release.sh
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+
+      - name: Install build dependencies
+        run: gem install asciidoctor rouge coderay pygments.rb
+
+#      - name: Run linter
+#        run: bundle exec rake lint
+
+      - name: Run tests
+        run: bundle exec rake spec
+
+      - name: Set up release environment
+        run: |
+          echo RELEASE_VERSION=${{ github.event.inputs.release-version }} >> "$GITHUB_ENV"
+          echo RELEASE_USER=${{ github.actor }} >> "$GITHUB_ENV"
+          echo RELEASE_RUBYGEMS_API_KEY=${{ secrets.RUBYGEMS_API_KEY }} >> "$GITHUB_ENV"
+
+      - name: Build, tag, and publish gem
+        run: ./release.sh
