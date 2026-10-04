@@ -75,6 +75,35 @@ describe AsciidoctorCommentLinks do
       (expect actual).to include '<a href="https://www.diguage.com/" target="_blank">https://www.diguage.com/</a>'
     end
 
+    it 'should convert a plain HTTP URL in a comment into a link' do
+      input = <<~'END'
+      :source-highlighter: rouge
+
+      [source,java]
+      ----
+      // Visit http://example.org/docs
+      ----
+      END
+
+      actual = Asciidoctor.convert input, safe: :safe
+      (expect actual).to include '<a href="http://example.org/docs" target="_blank">http://example.org/docs</a>'
+    end
+
+    it 'should not include trailing punctuation in the generated link' do
+      input = <<~'END'
+      :source-highlighter: rouge
+
+      [source,java]
+      ----
+      // See (https://example.com/docs).
+      ----
+      END
+
+      actual = Asciidoctor.convert input, safe: :safe
+      (expect actual).to include '<a href="https://example.com/docs" target="_blank">https://example.com/docs</a>'
+      (expect actual).not_to include 'href="https://example.com/docs)"'
+    end
+
     it 'should not convert URLs that appear outside comments' do
       input = <<~'END'
       :source-highlighter: rouge
