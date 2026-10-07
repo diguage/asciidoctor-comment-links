@@ -1,5 +1,5 @@
 = asciidoctor-comment-links
-v0.1.0, 2026-10-04
+v0.2.0, 2026-10-07
 
 ifdef::env-github[]
 :tip-caption: :bulb:

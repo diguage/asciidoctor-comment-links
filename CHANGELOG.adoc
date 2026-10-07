@@ -1,5 +1,15 @@
 = Change Log
 
+== v0.2.0
+
+. Add gem version badge and update description
+. Make highlighter dependencies optional and default to Rouge
+. Fix Rouge comment linkification with line numbers
+
+=== Details
+
+https://github.com/diguage/asciidoctor-comment-links/releases/tag/v0.2.0[git tag] | https://github.com/diguage/asciidoctor-comment-links/compare/v0.1.0\...v0.2.0[full diff]
+
 == v0.1.0
 
 . Generate CHANGELOG from git history in release workflow
