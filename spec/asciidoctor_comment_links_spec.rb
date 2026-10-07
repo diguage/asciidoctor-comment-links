@@ -136,6 +136,21 @@ describe AsciidoctorCommentLinks do
       (expect actual).not_to include 'href="https://example.com/docs)"'
     end
 
+    it 'should not include the AsciiDoc link title in the generated link' do
+      input = <<~'END'
+      :source-highlighter: rouge
+
+      [source,java]
+      ----
+      // See https://example.com/docs[the docs]
+      ----
+      END
+
+      actual = Asciidoctor.convert input, safe: :safe
+      (expect actual).to include '<a href="https://example.com/docs" target="_blank">https://example.com/docs</a>[the docs]'
+      (expect actual).not_to include 'href="https://example.com/docs['
+    end
+
     it 'should not convert URLs that appear outside comments' do
       input = <<~'END'
       :source-highlighter: rouge

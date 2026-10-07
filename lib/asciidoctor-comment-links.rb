@@ -2,9 +2,9 @@ require 'asciidoctor'
 
 module AsciidoctorCommentLinks
   # Matches http:// and https:// URLs in comments. Whitespace, quotes, angle
-  # brackets, and closing brackets are excluded so the generated link does not
-  # swallow trailing punctuation.
-  URL_PATTERN = %r!https?://[^\s<>"'\])}]+!i
+  # brackets, and bracket characters are excluded so the generated link does
+  # not swallow trailing punctuation or the title in an AsciiDoc link.
+  URL_PATTERN = %r!https?://[^\s<>"'\])}\[]+!i
 
   # CodeRay wraps a comment in a single span: <span class="comment">...</span>.
   CODERAY_COMMENT_SPAN_RX = %r{<span class="comment">[^<]*</span>}
@@ -118,7 +118,7 @@ module AsciidoctorCommentLinks
   LINKIFY_COMMENT_LINKS_SCRIPT = <<~'SCRIPT'.rstrip
     <script>
     (function () {
-      var re = /https?:\/\/[^\s<>"'\])}]+/gi;
+      var re = /https?:\/\/[^\s<>"'\])}\[]+/gi;
       var comments = document.querySelectorAll('.hljs-comment');
       for (var i = 0; i < comments.length; i++) {
         comments[i].innerHTML = comments[i].innerHTML.replace(re, '<a href="$&" target="_blank">$&</a>');
