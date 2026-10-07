@@ -9,7 +9,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-Turn the link in the comment of the source block into a clickable jump link.
+image:https://badge.fury.io/rb/asciidoctor-comment-links.svg["Gem Version", link="https://badge.fury.io/rb/asciidoctor-comment-links"]
+
+An Asciidoctor extension that turns the link in the comment of the source block into a clickable jump link.
 
 TIP: This extension supports the Rouge, CodeRay, Pygments, and highlight.js
 source highlighters. For Rouge, CodeRay, and Pygments the links are added
