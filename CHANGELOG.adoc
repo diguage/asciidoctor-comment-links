@@ -1,5 +1,13 @@
 = Change Log
 
+== v0.2.1
+
+. Exclude AsciiDoc link titles from comment URLs
+
+=== Details
+
+https://github.com/diguage/asciidoctor-comment-links/releases/tag/v0.2.1[git tag] | https://github.com/diguage/asciidoctor-comment-links/compare/v0.2.0\...v0.2.1[full diff]
+
 == v0.2.0
 
 . Add gem version badge and update description
