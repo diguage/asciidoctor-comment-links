@@ -1,0 +1,20 @@
+= asciidoctor-comment-links Examples
+:icons: font
+
+This directory contains one example per supported source highlighter. Each
+example shows how the extension turns a URL inside a code comment into a
+clickable link.
+
+* xref:rouge.adoc[Rouge]
+* xref:coderay.adoc[CodeRay]
+* xref:pygments.adoc[Pygments]
+* xref:highlightjs.adoc[highlight.js]
+
+TIP: highlight.js performs highlighting in the browser, so its example only
+shows the links after the generated HTML is opened and highlight.js has run.
+
+== Build
+
+Render an example with:
+
+ $ asciidoctor -r asciidoctor-comment-links examples/index.adoc
