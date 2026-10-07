@@ -78,6 +78,22 @@ describe AsciidoctorCommentLinks do
       (expect actual).to include '<a href="https://www.diguage.com/" target="_blank">https://www.diguage.com/</a>'
     end
 
+    it 'should convert URLs in comments when line numbers are enabled' do
+      input = <<~'END'
+      :source-highlighter: rouge
+
+      [source,java,linenums]
+      ----
+      /**
+       * @author D瓜哥 · https://www.diguage.com/
+       */
+      ----
+      END
+
+      actual = Asciidoctor.convert input, safe: :safe
+      (expect actual).to include '<a href="https://www.diguage.com/" target="_blank">https://www.diguage.com/</a>'
+    end
+
     it 'should convert a plain HTTP URL in a comment into a link' do
       input = <<~'END'
       :source-highlighter: rouge
