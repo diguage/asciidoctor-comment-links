@@ -101,6 +101,20 @@ module AsciidoctorCommentLinks
     end
   end
 
+  # If the document does not select a highlighter, fall back to Rouge. The
+  # fallback keeps the extension useful out of the box while still deferring
+  # to whatever highlighter the document explicitly configures.
+  class DefaultRougePreprocessor < Asciidoctor::Extensions::Preprocessor
+    def process document, reader
+      document.set_attr 'source-highlighter', 'rouge' unless document.attr? 'source-highlighter'
+      reader
+    end
+  end
+
+  Asciidoctor::Extensions.register do
+    preprocessor DefaultRougePreprocessor
+  end
+
   LINKIFY_COMMENT_LINKS_SCRIPT = <<~'SCRIPT'.rstrip
     <script>
     (function () {

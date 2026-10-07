@@ -17,6 +17,11 @@ when the document is converted. Since highlight.js performs highlighting in
 the browser, this extension injects a small script that turns URLs in
 comments into links after highlight.js has run.
 
+The highlighter is selected with Asciidoctor's `source-highlighter` attribute.
+When that attribute is not set, this extension falls back to Rouge. Install
+only the highlighter you intend to use: `gem install rouge`, `gem install
+coderay`, or `gem install pygments.rb`.
+
 == Installation
 
 This extension is published on RubyGems as

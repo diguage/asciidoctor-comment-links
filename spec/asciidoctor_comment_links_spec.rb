@@ -46,6 +46,19 @@ describe AsciidoctorCommentLinks do
   end
 
   context 'Rouge formatter' do
+    it 'should default to Rouge when no source highlighter is configured' do
+      input = <<~'END'
+      [source,java]
+      ----
+      // Visit https://example.com/docs
+      ----
+      END
+
+      actual = Asciidoctor.convert input, safe: :safe
+      (expect actual).to include '<pre class="rouge highlight">'
+      (expect actual).to include '<a href="https://example.com/docs" target="_blank">https://example.com/docs</a>'
+    end
+
     it 'should convert HTTP and HTTPS URLs in comments into links that open in a new window' do
       input = <<~'END'
       :source-highlighter: rouge

@@ -23,11 +23,11 @@ Gem::Specification.new do |s|
   # ~> 2.2.0 == ['>= 2.2.0', '< 2.3.0']
   s.add_runtime_dependency 'asciidoctor', ['>= 2.0.0', '< 3.0.0']
   s.add_runtime_dependency 'logger'
-  s.add_runtime_dependency 'rouge', '>= 3.29'
   # CodeRay and Pygments are optional. Install the matching gem only if you use
   # those highlighters: `gem install coderay` or `gem install pygments.rb`.
   s.add_development_dependency 'ostruct'
   s.add_development_dependency 'rake', '~> 13.0.0'
+  s.add_development_dependency 'rouge', '>= 3.29'
   s.add_development_dependency 'rspec', '~> 3.13.0'
   s.date = '2022-07-02'
   s.required_ruby_version = '>= 2.3'
